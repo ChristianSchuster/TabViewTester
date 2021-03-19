@@ -135,11 +135,91 @@ struct ContentView2: View {
     }
 }
 
+
+// Using animation passed into binding
+
+struct ContentView3: View {
+    
+    @StateObject var model: ViewModel = ViewModel()
+    
+    var body: some View {
+        VStack {
+            
+            Spacer()
+            
+            Text("Version 3")
+                .font(.largeTitle)
+            
+            Spacer()
+            
+            TabView(selection: self.$model.tabSelection)  {
+                    Text("Tab Content 1").tabItem { Text("Tab Label 1") }.tag(1)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous).foregroundColor(.blue))
+                    Text("Tab Content 2").tabItem { Text("Tab Label 2") }.tag(2)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous).foregroundColor(.green))
+                    Text("Tab Content 3").tabItem { Text("Tab Label 3") }.tag(3)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous).foregroundColor(.red))
+                }
+        .tabViewStyle(PageTabViewStyle())
+        .foregroundColor(.white)
+        .onAppear(){
+            self.model.startAutocycle()
+        }
+        }
+    
+    }
+}
+
+
+// Tryin to stop all animation and force a transaction
+
+struct ContentView4: View {
+    
+    @StateObject var model: ViewModel = ViewModel()
+    
+    var body: some View {
+        VStack {
+            
+            Spacer()
+            
+            Text("Version 4")
+                .font(.largeTitle)
+            
+            Spacer()
+            
+            TabView(selection: self.$model.tabSelection)  {
+                    Text("Tab Content 1").tabItem { Text("Tab Label 1") }.tag(1)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous).foregroundColor(.blue))
+                    Text("Tab Content 2").tabItem { Text("Tab Label 2") }.tag(2)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous).foregroundColor(.green))
+                    Text("Tab Content 3").tabItem { Text("Tab Label 3") }.tag(3)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous).foregroundColor(.red))
+                }
+            
+        .tabViewStyle(PageTabViewStyle())
+        .foregroundColor(.white)
+        .onAppear(){
+            self.model.startAutocycle()
+        }
+        }
+    
+    }
+}
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView()
             ContentView2()
+            ContentView3()
+            ContentView4()
         }
     }
 }
